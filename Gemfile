@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.0"
+ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.0.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 #bootstrap
 gem 'bootstrap-sass', '3.4.1'
-# Faker 
+# Faker
 gem 'faker', '2.11.0'
 # will_paignate    dùng để phân trang{
 gem 'will_paginate','3.3.0'
