@@ -53,7 +53,6 @@ production:
   encoding: unicode
   <<: *default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
   database: hair_app_production
   username: hair_app
   password: <%= ENV["HAIR_APP_DATABASE_PASSWORD"] %>

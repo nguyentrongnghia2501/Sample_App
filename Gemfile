@@ -69,7 +69,6 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -84,6 +83,11 @@ group :test do
   gem "webdrivers"
 
 end
-
+group :production do
+  gem 'pg', '1.2.3'
+end
+group :development, :test do
+  gem 'byebug', '11.1.3', platforms: [:mri, :mingw, :x64_mingw]
+end
 
 gem "ruby-lsp", "~> 0.3.2", :group => :development
