@@ -2,5 +2,29 @@
   "dependencies": {
     "bootstrap": "3.4.1",
     "jquery": "3.5.1"
-  }
+  },
+  "name": "sample_app-circle",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguyentrongnghia2501/Sample_App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nguyentrongnghia2501/Sample_App/issues"
+  },
+  "homepage": "https://github.com/nguyentrongnghia2501/Sample_App#readme"
 }
