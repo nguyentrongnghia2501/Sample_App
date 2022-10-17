@@ -6,9 +6,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def show
-          @user = User.find(params[:id]) 
+          @user = User.find(params[:id])
           #redirect_to root_url and return unless FILL_IN    ?????????
-          @microposts = @user.microposts.paginate(page: params[:page])
+         @microposts = @user.microposts.paginate(page: params[:page])
   end
    def create
     @user = User.new(user_params)
@@ -17,8 +17,8 @@ class UsersController < ApplicationController
       # log_in @user
       # flash[:success] = "Welcome to the Sample App!"
       # redirect_to @user
-      #gui gmail 
-         
+      #gui gmail
+
           @user.send_activation_email
           UserMailer.account_activation(@user).deliver_now
           flash[:info] = "Please check your email to activate your account."
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     end
   end
 
- 
+
 
   def index
     #@users = User.all.paginate(page: params[:page])

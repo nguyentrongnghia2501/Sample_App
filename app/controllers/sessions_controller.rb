@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
                 flash[:warning] = message
                 redirect_to root_url
             end
-                
+
         else
           # Create an error message.
           flash.now[:danger] = 'sai tài khoản hoặc mật khẩu' # Not quite right!
@@ -30,5 +30,5 @@ class SessionsController < ApplicationController
       log_out if logged_in?
       redirect_to root_url
      end
-    
+
 end
