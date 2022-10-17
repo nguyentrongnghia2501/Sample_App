@@ -1,28 +1,47 @@
-class User < ActiveRecord::Base
-    has_many :microposts, dependent: :destroy
+class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :microposts, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                      foreign_key: "follower_id",
+                                      dependent:
+                                      :destroy
+  has_many :passive_relationships, class_name: "Relationship",
+                                      foreign_key: "followed_id",
+                                      dependent:
+                                      :destroy
+  has_many :microposts, dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  devise :omniauthable, :database_authenticatable, :recoverable,
+         :rememberable, :validatable, omniauth_providers: [:google_oauth2]
+
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :downcase_email
     before_create :create_activation_digest
-    has_many :microposts, dependent: :destroy
-    has_many :active_relationships, class_name: "Relationship",
-                                        foreign_key: "follower_id",
-                                        dependent:
-                                        :destroy
-    has_many :passive_relationships, class_name: "Relationship",
-                                        foreign_key: "followed_id",
-                                        dependent:
-                                        :destroy
-    has_many :following, through: :active_relationships, source: :followed
-    has_many :followers, through: :passive_relationships, source: :follower
-                                        
+
         before_save { email.downcase }   # Dam bao tinh only
-   
+
         validates :name, presence: true, length: { maximum: 50 }
         VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
         validates :email, presence: true, length: { maximum: 255 }, format:{ with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-        has_secure_password
+    #    has_secure_password khoong duoc dung lan voi devise
         validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
         # Returns the hash digest of the given string. Trả về thông báo băm của chuỗi đã cho.
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name # assuming the user model has a name
+      user.avatar_url = auth.info.image # assuming the user model has an image
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      # user.skip_confirmation!
+    end
+  end
+
     class << self
         def digest(string)
             cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -34,7 +53,7 @@ class User < ActiveRecord::Base
             SecureRandom.urlsafe_base64
         end
     end
-    
+
     # Remembers a user in the database for use in persistent sessions.
     # Ghi nhớ một người dùng trong cơ sở dữ liệu để sử dụng trong các phiên liên tục.
     def remember
@@ -70,7 +89,7 @@ class User < ActiveRecord::Base
     def send_activation_email
             UserMailer.account_activation(self).deliver_now
     end
-    # gui gmail 
+    # gui gmail
     # Activates an account.
     # Kích hoạt tài khoản.
 
@@ -101,7 +120,7 @@ class User < ActiveRecord::Base
 # See "Following users" for the full implementation.
     def feed
        #Micropost.where("user_id = ?", id)
-      # Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)  
+      # Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
 
 
         #  following_ids = "SELECT followed_id FROM relationships Nguyen trong Nghia
@@ -127,7 +146,7 @@ Micropost.left_outer_joins(user: :followers).where(part_of_feed, { id: id })
                 following.include?(other_user)
         end
     private
-# Converts email to all lower-case. 
+# Converts email to all lower-case.
 ## Chuyển đổi email thành tất cả các chữ thường.
 
     def downcase_email
@@ -142,6 +161,6 @@ Micropost.left_outer_joins(user: :followers).where(part_of_feed, { id: id })
     end
 
 
-   
-  
+
+
 end
