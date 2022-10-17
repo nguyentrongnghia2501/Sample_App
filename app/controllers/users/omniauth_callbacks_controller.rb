@@ -26,6 +26,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_session_path
     end
   end
+  def destroy
+    log_out if logged_in?
+    redirect_to root_url
+   end
   # More info at:
   # https://github.com/heartcombo/devise#omniauth
 
