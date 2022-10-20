@@ -13,14 +13,13 @@ class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  
-  devise :omniauthable, :database_authenticatable, :registerable, :recoverable,
+
+  devise :omniauthable, :database_authenticatable, :recoverable,
          :rememberable, :validatable, omniauth_providers: [:google_oauth2]
 
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :downcase_email
     before_create :create_activation_digest
-
 
         before_save { email.downcase }   # Dam bao tinh only
 

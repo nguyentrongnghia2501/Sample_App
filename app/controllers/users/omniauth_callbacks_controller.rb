@@ -11,6 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   user = User.from_omniauth(auth)
 
     if user.present?
+      user.activate
       sign_out_all_scopes
       flash[:success] = t "devise.omniauth_callbacks.success", kind: "Google"
       forwarding_url = session[:forwarding_url]
