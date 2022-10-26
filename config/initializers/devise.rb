@@ -28,6 +28,10 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
                   Rails.application.credentials.dig(:google_oauth_client_id),
                   Rails.application.credentials.dig(:google_oauth_client_secret)
+  config.omniauth :facebook,
+                  Rails.application.credentials.dig(:facebook_client_id),
+                  Rails.application.credentials.dig(:facebook_client_secret),callback_url: "http://localhost:3000/users/auth/facebook/callback"
+
   # config.omniauth :facebook,
   #                 Rails.application.credentials.dig(:facebook_oauth_client_id),
   #                 Rails.application.credentials.dig(:facebook_oauth_client_secret)
@@ -276,7 +280,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # config.omniauth :facebook, '3048988992058661 ', '373f3acbed5d240b6d35a9d1f0ea10c5'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

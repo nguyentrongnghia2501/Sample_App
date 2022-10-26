@@ -27,10 +27,44 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_session_path
     end
   end
-  def destroy
-    log_out if logged_in?
-    redirect_to root_url
-   end
+  def facebook
+  user = User.from_omniauth(auth)
+
+    if user.present?
+      user.activate
+      sign_out_all_scopes
+      flash[:success] = t "devise.omniauth_callbacks.success", kind: "facebook"
+      forwarding_url = session[:forwarding_url]
+      reset_session
+      log_in user
+
+      redirect_to forwarding_url || user
+    #  sign_in_and_redirect user, event: :authentication
+    else
+      flash[:alert] = t "devise.omniauth_callbacks.failure",
+        kind: "Google",
+        reason: "#{auth.info.email} is not authorized."
+      redirect_to new_user_session_path
+    end
+  end
+
+
+
+  # def facebook
+  #    @user = User.from_omniauth(
+  #      request.env["omniauth.auth"]
+  #    )
+  #    if @user.persisted?
+  #      flash[:notice]= "Has ingresado via facebook"
+  #      sign_in_and_redirect @user, :event => :authentication
+  #    else
+  #      redirect_to new_user_session_path
+  #    end
+  #  end
+  # def destroy
+  #   log_out if logged_in?
+  #   redirect_to root_url
+  #  end
   # More info at:
   # https://github.com/heartcombo/devise#omniauth
 

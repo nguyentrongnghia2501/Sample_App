@@ -14,8 +14,8 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  devise :omniauthable, :database_authenticatable, :recoverable,
-         :rememberable, :validatable, omniauth_providers: [:google_oauth2]
+  devise :omniauthable, :database_authenticatable, :recoverable, :registerable,
+         :rememberable, :validatable, omniauth_providers: [ :google_oauth2, :facebook]
 
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :downcase_email
@@ -35,12 +35,26 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name # assuming the user model has a name
-      user.avatar_url = auth.info.image # assuming the user model has an image
+      # user.avatar_url = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
   end
+  # def self.find_for_facebook_oauth(auth)
+  #           user = User.where(provider: auth.provider, uid: auth.uid).first
+  #           return user if user
+  #           user = User.where(email: auth.info.email).first
+  #           return user if user
+  #           User.create(
+  #             email: auth.info.email,
+  #             provider: auth.provider,
+  #             uid: auth.uid,
+  #             image:  auth.info.image,
+  #             password: Devise.friendly_token[0, 20]
+  #
+  #           )
+  # end
 
     class << self
         def digest(string)
