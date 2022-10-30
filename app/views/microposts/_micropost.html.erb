@@ -12,4 +12,25 @@
                 data: { confirm: "You sure?" } %>
         <% end %>
         </span>
+        <!--  -->
+        <br>
+        <h5>Comment :</h5>
+        <%= @comment = micropost.comments %>
+        <span id="comment-<%= micropost.id %>">
+                <%= render @comment %>
+        </span>
+        <span id="form">
+          <%= form_for Comment.new , remote: true do |f| %>
+                 <%= render 'shared/error_messages', object: f.object %>
+                   <div class="field">
+                     <%= f.hidden_field :micropost_id, value: micropost.id %>
+                     <%= f.hidden_field :user_id, value: current_user.id %>
+                     <%= f.text_area :body, placeholder: "Viết bình luận ...", class: "form-control" %>
+                   </div>
+                 <%= f.submit "Comment", class: "btn btn-primary" %>
+          <% end %>
+
+
+        </span>
+
 </li>
