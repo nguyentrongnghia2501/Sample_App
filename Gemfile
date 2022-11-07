@@ -96,3 +96,4 @@ end
  gem 'cancancan'
  gem "private_pub"
  gem "thin"
+ 
