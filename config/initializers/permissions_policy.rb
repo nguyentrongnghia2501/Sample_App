@@ -1,3 +1,7 @@
+# good
+# frozen_string_literal: true
+
+# Some documentation for Person
 # Define an application-wide HTTP permissions policy. For further
 # information see https://developers.google.com/web/updates/2018/06/feature-policy
 #

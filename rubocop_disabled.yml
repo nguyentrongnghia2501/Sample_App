@@ -1,0 +1,60 @@
+# These are all the cops that are disabled in the default configuration.
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Performance/StartWith:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Lint/AmbiguousOperator:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false

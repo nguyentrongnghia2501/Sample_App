@@ -1,3 +1,7 @@
+# good
+# frozen_string_literal: true
+
+# Some documentation for Person
 class CreateMicroposts < ActiveRecord::Migration[7.0]
   def change
     create_table :microposts do |t|

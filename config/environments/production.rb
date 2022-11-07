@@ -1,3 +1,7 @@
+# good
+# frozen_string_literal: true
+
+# Some documentation for Person
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
