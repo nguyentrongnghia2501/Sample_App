@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Service to download ftp files from the server
 class RelationshipsController < ApplicationController
   before_action :logged_in_user
   def create

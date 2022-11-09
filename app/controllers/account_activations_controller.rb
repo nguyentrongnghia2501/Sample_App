@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Service to download ftp files from the server
 class AccountActivationsController < ApplicationController
   def edit
     user = User.find_by(email: params[:email])

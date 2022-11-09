@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Service to download ftp files from the server
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[index edit update destroy]
   before_action :correct_user, only: %i[edit update]

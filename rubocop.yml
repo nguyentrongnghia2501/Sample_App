@@ -53,6 +53,8 @@ Metrics/CyclomaticComplexity:
   Max: 30
 Metrics/ModuleLength:
   Max: 1000
+Metrics/ClassLength:
+   Enabled: false
 
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses

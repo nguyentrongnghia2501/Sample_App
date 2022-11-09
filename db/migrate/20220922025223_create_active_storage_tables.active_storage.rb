@@ -3,6 +3,7 @@
 
 # Some documentation for Person
 # This migration comes from active_storage (originally 20170806125915)
+# Service to download ftp files from the server
 class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
   def change
     # Use Active Record's configured type for primary and foreign keys

@@ -1,5 +1,9 @@
+# app/models/user.rb
+# good
 # frozen_string_literal: true
 
+# Some documentation for Person
+# Service to download ftp files from the server
 class CreateRelationships < ActiveRecord::Migration[7.0]
   def change
     create_table :relationships do |t|

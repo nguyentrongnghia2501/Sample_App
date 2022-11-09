@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Service to download ftp files from the server
 class PasswordResetsController < ApplicationController
   before_action :get_user, only: %i[edit update]
   before_action :valid_user, only: %i[edit update]
