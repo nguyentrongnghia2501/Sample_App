@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Service to download ftp files from the server
 class CreateRelationships < ActiveRecord::Migration[7.0]
   def change
     create_table :relationships do |t|
@@ -7,6 +10,6 @@ class CreateRelationships < ActiveRecord::Migration[7.0]
     end
     add_index :relationships, :follower_id
     add_index :relationships, :followed_id
-    add_index :relationships, [:follower_id, :followed_id], unique: true
+    add_index :relationships, %i[follower_id followed_id], unique: true
   end
 end
