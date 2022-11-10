@@ -1,0 +1,113 @@
+# This is rubocop configuration file for Framgia's coding style. Enabling and disabling is configured
+# in separate files. This file adds all other parameters apart from Enabled.
+
+# Put the following files into the same directory as this file.
+require: rubocop-performance
+
+inherit_from:
+  - .rubocop_enabled.yml
+  - .rubocop_disabled.yml
+
+# Common configuration.
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - config/application.rb
+    - config/initializers/*
+    - config/environments/*
+    - config/deploy.rb
+    - "**/config.ru"
+    - bin/*
+    - vendor/**/*
+    - test/*
+  TargetRubyVersion: 2.5.1
+Lint/SafeNavigationChain:
+  Whitelist:
+    - where
+# Indent private/protected/public as deep as method definitions
+Layout/AccessModifierIndentation:
+  EnforcedStyle: indent
+  SupportedStyles:
+    - outdent
+    - indent
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
+Metrics/LineLength:
+  Max: 130
+  AllowURI: true
+  Exclude:
+    - config/routes.rb
+    - spec/**/*
+Metrics/PerceivedComplexity:
+  Max: 18
+Metrics/CyclomaticComplexity:
+  Max: 30
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ClassLength:
+  Max: 100
+Metrics/MethodLength:
+  Max: 100
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%": ()
+    "%i": ()
+    "%q": ()
+    "%Q": ()
+    "%r": "{}"
+    "%s": ()
+    "%w": ()
+    "%W": ()
+    "%x": ()
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+Style/TrivialAccessors:
+  ExactNameMatch: false
+  AllowPredicates: false
+  # Allows trivial writers that don't end in an equal sign. e.g.
+  #
+  # def on_exception(action)
+  #   @on_exception=action
+  # end
+  # on_exception :restart
+  #
+  # Commonly used in DSLs
+  AllowDSLWriters: false
+  Whitelist:
+    - to_ary
+    - to_a
+    - to_c
+    - to_enum
+    - to_h
+    - to_hash
+    - to_i
+    - to_int
+    - to_io
+    - to_open
+    - to_path
+    - to_proc
+    - to_r
+    - to_regexp
+    - to_str
+    - to_s
+    - to_sym

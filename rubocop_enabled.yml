@@ -1,0 +1,17 @@
+# These are all the cops that are enabled in the default configuration.
+
+Layout/ExtraSpacing:
+  ForceEqualSignAlignment: true
+
+Layout/AlignHash:
+  Description: >-
+                 Align the elements of a hash literal if they span more than
+                 one line.
+  Enabled: true
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+Layout/AlignParameters:
+  Description: >-
+                 Align the parameters of a method call if they span more
+                 than one line.
+  Enabled: true
