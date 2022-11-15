@@ -1,8 +1,10 @@
-class SessionsController < ApplicationController
-  def new
-  end
+# frozen_string_literal: true
 
-  def create
+# Service to download ftp files from the server
+class SessionsController < ApplicationController
+  def new; end
+
+  def create # rubocop:disable Metrics/MethodLength
     user = User.find_by(email: params[:session][:email].downcase)
   #  binding.pry
     if user && user.valid_password?(params[:session][:password])

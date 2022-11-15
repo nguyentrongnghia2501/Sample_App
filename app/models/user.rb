@@ -64,27 +64,30 @@ class User < ApplicationRecord
     # Returns true if the given token matches the digest.
     ## Trả về true nếu mã thông báo đã cho khớp với thông báo.
 
-    # Returns true if the given token matches the digest.
-    def authenticated?(attribute, token)
-            digest = send("#{attribute}_digest")
-            return false if digest.nil?
-            BCrypt::Password.new(digest).is_password?(token)
-    end
-    #Forgets a user.
-    def forget
-            update_attribute(:remember_digest, nil)
-    end
-    def session_token
-            remember_digest || remember
-    end
-    # Activates an account.
-    # Kích hoạt tài khoản.
+  # Returns true if the given token matches the digest.
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
 
-    def activate
-            update_columns(activated: FILL_IN, activated_at: FILL_IN)
-    end
-     # Sends activation email.
-    # Gửi email kích hoạt.
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # Forgets a user.
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
+  def session_token
+    remember_digest || remember
+  end
+  # Activates an account.
+  # Kích hoạt tài khoản.
+
+  # def activate
+  #   update_columns(activated: FILL_IN, activated_at: FILL_IN)
+  # end
+  # Sends activation email.
+  # Gửi email kích hoạt.
 
     def send_activation_email
             UserMailer.account_activation(self).deliver_now
@@ -93,25 +96,26 @@ class User < ApplicationRecord
     # Activates an account.
     # Kích hoạt tài khoản.
 
-    def activate
-            update_attribute(:activated,true)
-            update_attribute(:activated_at, Time.zone.now)
-    end
-    # Sets the password reset attributes.
-    #Đặt thuộc tính đặt lại mật khẩu.
+  def activate
+    update_attribute(:activated, true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+  # Sets the password reset attributes.
+  # Đặt thuộc tính đặt lại mật khẩu.
 
-    def create_reset_digest
-            self.reset_token = User.new_token
-           # update_attribute(:reset_digest, User.digest(reset_token))
-            #update_attribute(:reset_sent_at, Time.zone.now)
-            update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
-    end
-    # Sends password reset email.
-    def send_password_reset_email
-             UserMailer.password_reset(self).deliver_now
-    end
-    # Returns true if a password reset has expired.
-    # Trả về true nếu quá trình đặt lại mật khẩu đã hết hạn.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    # update_attribute(:reset_digest, User.digest(reset_token))
+    # update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  # Sends password reset email.
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+  # Returns true if a password reset has expired.
+  # Trả về true nếu quá trình đặt lại mật khẩu đã hết hạn.
 
     def password_reset_expired?
             reset_sent_at < 2.hours.ago
@@ -122,15 +126,14 @@ class User < ApplicationRecord
        #Micropost.where("user_id = ?", id)
       # Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
 
+    #  following_ids = "SELECT followed_id FROM relationships Nguyen trong Nghia
+    #  WHERE follower_id = :user_id"
+    #  Micropost.where("user_id IN (:following_ids) OR user_id = :user_id",
+    #  following_ids: following_ids, user_id: id)
 
-        #  following_ids = "SELECT followed_id FROM relationships Nguyen trong Nghia
-        #  WHERE follower_id = :user_id"
-        #  Micropost.where("user_id IN (:following_ids) OR user_id = :user_id",
-        #  following_ids: following_ids, user_id: id)
-
-        part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
-Micropost.left_outer_joins(user: :followers).where(part_of_feed, { id: id })
-    end
+    part_of_feed = 'relationships.follower_id = :id or microposts.user_id = :id'
+    Micropost.left_outer_joins(user: :followers).where(part_of_feed, { id: id })
+  end
 
 # Chuong 14
     # Follows a user.
@@ -149,11 +152,11 @@ Micropost.left_outer_joins(user: :followers).where(part_of_feed, { id: id })
 # Converts email to all lower-case.
 ## Chuyển đổi email thành tất cả các chữ thường.
 
-    def downcase_email
-             self.email = email.downcase
-    end
-# Creates and assigns the activation token and digest.
-# Tạo và chỉ định mã thông báo kích hoạt và thông báo.
+  def downcase_email
+    self.email = email.downcase
+  end
+  # Creates and assigns the activation token and digest.
+  # Tạo và chỉ định mã thông báo kích hoạt và thông báo.
 
     def create_activation_digest
             self.activation_token = User.new_token
