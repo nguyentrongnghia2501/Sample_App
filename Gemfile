@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.0'
@@ -28,6 +28,7 @@ gem 'stimulus-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -84,3 +85,10 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+ gem 'devise'
+ gem 'omniauth'
+ gem 'omniauth-google-oauth2'
+ gem "omniauth-rails_csrf_protection", "~> 1.0"
+ gem 'omniauth-facebook'
+ gem 'pry-rails'
+ gem 'activerecord-session_store'
